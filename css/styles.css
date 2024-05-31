@@ -1,0 +1,61 @@
+/* css/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+header, footer {
+    text-align: center;
+}
+
+header button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+#game-board {
+    display: grid;
+    gap: 5px;
+    margin: 20px 0;
+}
+
+.grid div {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    border: 1px solid #333;
+    cursor: pointer;
+}
+
+.grid div.player {
+    background-color: #4CAF50;
+}
+
+.grid div.zombie {
+    background-color: #F44336;
+}
+
+.grid div.obstacle {
+    background-color: #9E9E9E;
+}
+
+.grid div.item {
+    background-color: #FFD700;
+}

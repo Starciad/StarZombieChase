@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Zombie Chase - Game Made by Starciad</title>
+
+    <!-- STYLES -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/modal.css">
+
+    <!-- SCRIPTS -->    
+    <script src="js/main.js" type="module" defer></script>
+    <script src="js/game.js" type="module" defer></script>
+    <script src="js/render.js" type="module" defer></script>
+</head>
+<body>
+    <div id="modal-container">
+        <!-- Configuração -->
+        <div id="config-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Configuração do Jogo</h2>
+                <label for="map-size">Tamanho do Mapa:</label>
+                <input type="number" id="map-size" value="5">
+                <label for="zombie-count">Quantidade de Zumbis:</label>
+                <input type="number" id="zombie-count" value="1">
+                <label for="obstacle-count">Quantidade de Obstáculos:</label>
+                <input type="number" id="obstacle-count" value="2">
+                <label for="item-count">Quantidade de Itens:</label>
+                <input type="number" id="item-count" value="3">
+                <button id="start-game">Iniciar Jogo</button>
+            </div>
+        </div>
+
+        <!-- Game Over -->
+        <div id="game-over-modal" class="modal">
+            <div class="modal-content">
+                <h2>Game Over</h2>
+                <p>Você foi pego por um zumbi!</p>
+                <button id="restart-game">Reiniciar Jogo</button>
+            </div>
+        </div>
+
+        <!-- Vitória -->
+        <div id="victory-modal" class="modal">
+            <div class="modal-content">
+                <h2>Você Venceu!</h2>
+                <p>Você coletou todos os itens!</p>
+                <button id="restart-game-victory">Reiniciar Jogo</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-container">
+        <header>
+            <h1>Star Zombie Chase</h1>
+            <button id="config-button">Configurar Jogo</button>
+        </header>
+        <main>
+            <div id="game-info">
+                <p>Turno atual: <span id="round">1</span></p>
+                <p>Itens coletados: <span id="collected-items">0</span>/<span id="total-items">1</span></p>
+            </div>
+            <div id="game-board" class="grid"></div>
+        </main>
+        <footer>
+            <p>Jogo feito e desenvolvido pelo <a href="https://github.com/Starciad" target="_blank">Starciad</a></p>
+            <p><a href="https://github.com/Starciad/ZombieChase" target="_blank">Ir para o repositório do jogo</a></p>
+        </footer>
+    </div>
+
+</body>
+</html>
