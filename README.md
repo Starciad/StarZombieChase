@@ -15,7 +15,7 @@ Feel free to explore the project and investigate it in any way you find interest
 
 ## Links
 
-If you're interested in seeing or playing a bit of the project, click the following link: <https://github.com/Starciad/StarZombieChase.git>.
+If you're interested in seeing or playing a bit of the project, click the following link: <https://starciad.github.io/StarZombieChase/>.
 
 ## How to Play
 
