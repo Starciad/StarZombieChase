@@ -1,4 +1,4 @@
-import { gameOverModal, victoryModal } from "./main.js";
+import { gameOverDialog, victoryDialog } from "./main.js";
 import { updateBoard } from "./render.js";
 
 // Inputs
@@ -115,8 +115,15 @@ export function movePlayer(x, y) {
         collectItem();
         moveZombies();
         updateBoard();
-        checkGameOver();
-        checkVictory();
+
+        if (checkVictory()) {
+            return;
+        }
+
+        if (checkGameOver()) {
+            return;
+        }
+
         nextRound();
     }
 }
@@ -161,12 +168,18 @@ function nextRound() {
 
 function checkGameOver() {
     if (zombiePos.some(zombie => zombie.x === playerPos.x && zombie.y === playerPos.y)) {
-        gameOverModal.style.display = 'block';
+        gameOverDialog.showModal();
+        return true;
     }
+
+    return false;
 };
 
 function checkVictory() {
     if (itemsCollected === itemCount) {
-        victoryModal.style.display = 'block';
+        victoryDialog.showModal();
+        return true;
     }
+
+    return false;
 };

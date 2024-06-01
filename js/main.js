@@ -2,42 +2,49 @@ import { handleKeydown, initializeGame } from "./game.js";
 
 // ======================================= //
 
-// Buttons
-const configButton = document.getElementById("config-button");
-const startGameButton = document.getElementById("start-game");
-const restartGameButton = document.getElementById("restart-game");
-const restartGameVictoryButton = document.getElementById("restart-game-victory");
-const closeConfig = document.querySelector(".close");
+// Dialogues
+export const settingsDialog = document.getElementById("settings-dialog");
+export const gameOverDialog = document.getElementById("game-over-dialog");
+export const victoryDialog = document.getElementById("victory-dialog");
 
-// Modals
-export const configModal = document.getElementById("config-modal");
-export const gameOverModal = document.getElementById("game-over-modal");
-export const victoryModal = document.getElementById("victory-modal");
+// Buttons
+const openSettingsButton = document.getElementById("open-settings-button");
+const closeSettingsButton = document.getElementById("close-settings-button");
+
+const startGameButton = document.getElementById("start-game-button");
+const restartGameButton = document.getElementById("restart-game-button");
+const restartGameVictoryButton = document.getElementById("restart-game-victory-button");
 
 // ======================================= //
+// Settings Dialog
 
-configButton.addEventListener("click", () => {
-    configModal.style.display = "block";
+openSettingsButton.addEventListener("click", () => {
+    settingsDialog.showModal();
 });
 
-closeConfig.addEventListener("click", () => {
-    configModal.style.display = "none";
+closeSettingsButton.addEventListener("click", () => {
+    settingsDialog.close();
 });
+
+// ======================================= //
+// Stats
 
 startGameButton.addEventListener("click", () => {
-    configModal.style.display = "none";
+    settingsDialog.close();
     initializeGame();
 });
 
 restartGameButton.addEventListener("click", () => {
-    gameOverModal.style.display = "none";
+    gameOverDialog.close();
     initializeGame();
 });
 
 restartGameVictoryButton.addEventListener("click", () => {
-    victoryModal.style.display = "none";
+    victoryDialog.close();
     initializeGame();
 });
+
+// ======================================= //
 
 window.addEventListener("click", (event) => {
     if (event.target === configModal) {
