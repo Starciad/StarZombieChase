@@ -44,23 +44,8 @@ restartGameVictoryButton.addEventListener("click", () => {
     initializeGame();
 });
 
-// ======================================= //
-
-window.addEventListener("click", (event) => {
-    if (event.target === configModal) {
-        configModal.style.display = "none";
-    }
-    if (event.target === gameOverModal) {
-        gameOverModal.style.display = "none";
-    }
-    if (event.target === victoryModal) {
-        victoryModal.style.display = "none";
-    }
-});
-
-document.addEventListener("keydown", handleKeydown);
-
 // ================================================= //
 // START GAME
 
+document.addEventListener("keydown", handleKeydown);
 initializeGame();
