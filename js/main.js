@@ -3,17 +3,14 @@ import { handleKeydown, initializeGame } from "./game.js";
 // ======================================= //
 
 // Dialogues
-export const settingsDialog = document.getElementById("settings-dialog");
-export const gameOverDialog = document.getElementById("game-over-dialog");
-export const victoryDialog = document.getElementById("victory-dialog");
+export const settingsDialog = document.querySelector("#settings-dialog");
+export const gameOverDialog = document.querySelector("#game-over-dialog");
+export const victoryDialog = document.querySelector("#victory-dialog");
 
 // Buttons
-const openSettingsButton = document.getElementById("open-settings-button");
-const closeSettingsButton = document.getElementById("close-settings-button");
-
-const startGameButton = document.getElementById("start-game-button");
-const restartGameButton = document.getElementById("restart-game-button");
-const restartGameVictoryButton = document.getElementById("restart-game-victory-button");
+const openSettingsButton = document.querySelector("#open-settings-button");
+const closeSettingsButton = document.querySelector("#close-settings-button");
+const restartGameButtons = document.querySelectorAll("#restart-game-button");
 
 // ======================================= //
 // Settings Dialog
@@ -29,19 +26,14 @@ closeSettingsButton.addEventListener("click", () => {
 // ======================================= //
 // Stats
 
-startGameButton.addEventListener("click", () => {
-    settingsDialog.close();
-    initializeGame();
-});
-
-restartGameButton.addEventListener("click", () => {
-    gameOverDialog.close();
-    initializeGame();
-});
-
-restartGameVictoryButton.addEventListener("click", () => {
-    victoryDialog.close();
-    initializeGame();
+restartGameButtons.forEach(element => {
+    element.addEventListener('click', () => {
+        gameOverDialog.close();
+        victoryDialog.close();
+        settingsDialog.close();
+    
+        initializeGame();
+    });
 });
 
 // ================================================= //
