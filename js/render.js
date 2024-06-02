@@ -31,7 +31,13 @@ export function updateBoard() {
                 cell.classList.add("item");
             }
 
-            cell.addEventListener("click", () => movePlayer(x, y));
+            // Adds click event to move player on board.
+            cell.addEventListener("click", () => {
+                const dx = x - playerPos.x;
+                const dy = y - playerPos.y;
+                movePlayer(dx, dy);
+            });
+
             gameBoard.appendChild(cell);
         }
     }
