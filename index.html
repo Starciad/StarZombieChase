@@ -21,16 +21,22 @@
         <dialog id="settings-dialog">
             <form method="dialog">
                 <fieldset>
-                    <legend>Configuração do Jogo</legend>
+                    <legend>Configuração do Mapa</legend>
 
-                    <label for="map-size">Tamanho do Mapa:</label>
-                    <input type="number" id="map-size" value="5">
+                    <label for="map-size">Tamanho:</label>
+                    <input type="number" id="map-size" min="3" max="10" value="5" required>
+                </fieldset>
+                <fieldset>
+                    <legend>Configurações de Entidades</legend>
+
                     <label for="zombie-count">Quantidade de Zumbis:</label>
-                    <input type="number" id="zombie-count" value="1">
+                    <input type="number" id="zombie-count" min="1" max="10" value="1" required>
+
                     <label for="obstacle-count">Quantidade de Obstáculos:</label>
-                    <input type="number" id="obstacle-count" value="2">
+                    <input type="number" id="obstacle-count" min="1" max="10" value="2" required>
+
                     <label for="item-count">Quantidade de Itens:</label>
-                    <input type="number" id="item-count" value="3">
+                    <input type="number" id="item-count" min="1" max="10" value="1" required>
                 </fieldset>
 
                 <menu>
@@ -51,7 +57,7 @@
             </menu>
         </dialog>
 
-        <!-- Vitória -->
+        <!-- Victory -->
         <dialog id="victory-dialog">
             <section>
                 <h2>Você Venceu!</h2>
@@ -77,8 +83,7 @@
         </main>
         <footer>
             <p>Jogo feito e desenvolvido pelo <a href="https://github.com/Starciad" target="_blank">Starciad</a></p>
-            <p><a href="https://github.com/Starciad/StarZombieChase.git" target="_blank">Ir para o repositório do
-                    jogo</a></p>
+            <p><a href="https://github.com/Starciad/StarZombieChase.git" target="_blank">Ir para o repositório do jogo</a></p>
         </footer>
     </div>
 
