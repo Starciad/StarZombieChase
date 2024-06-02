@@ -10,9 +10,10 @@ const itemCountInput = document.getElementById("item-count");
 // Labels
 const collectedItemsLabel = document.getElementById("collected-items");
 const roundLabel = document.getElementById("round");
+const totalItemsLabel = document.getElementById('total-items');
 
 // Positions & Entities
-export let playerPos = { x: 1, y: 1 };
+export let playerPos = { x: 0, y: 0 };
 export let zombiePos = [];
 export let obstaclePos = [];
 export let itemPos = [];
@@ -28,41 +29,14 @@ export let obstacleCount = 1;
 export let itemCount = 1;
 
 // ============================================= //
+// GAME STARTUP PROCESS
 
 export function initializeGame() {
     updateConfigurationValues();
-
-    // Spawn Zombies
-    for (let i = 0; i < zombieCount; i++) {
-        let x, y;
-        do {
-            x = Math.floor(Math.random() * mapSize);
-            y = Math.floor(Math.random() * mapSize);
-        } while ((x === playerPos.x && y === playerPos.y) || zombiePos.some(pos => pos.x === x && pos.y === y));
-        zombiePos.push({ x, y });
-    }
-
-    // Spawn Obstacles
-    for (let i = 0; i < obstacleCount; i++) {
-        let x, y;
-        do {
-            x = Math.floor(Math.random() * mapSize);
-            y = Math.floor(Math.random() * mapSize);
-        } while ((x === playerPos.x && y === playerPos.y) || obstaclePos.some(pos => pos.x === x && pos.y === y) || zombiePos.some(pos => pos.x === x && pos.y === y));
-        obstaclePos.push({ x, y });
-    }
-
-    // Spawn Items
-    for (let i = 0; i < itemCount; i++) {
-        let x, y;
-        do {
-            x = Math.floor(Math.random() * mapSize);
-            y = Math.floor(Math.random() * mapSize);
-        } while ((x === playerPos.x && y === playerPos.y) || obstaclePos.some(pos => pos.x === x && pos.y === y) || zombiePos.some(pos => pos.x === x && pos.y === y) || itemPos.some(pos => pos.x === x && pos.y === y));
-        itemPos.push({ x, y });
-    }
-
-    document.getElementById('total-items').textContent = itemCount;
+    spawnEntities(zombiePos, zombieCount, [playerPos], mapSize);
+    spawnEntities(obstaclePos, obstacleCount, [playerPos, ...zombiePos], mapSize);
+    spawnEntities(itemPos, itemCount, [playerPos, ...zombiePos, ...obstaclePos], mapSize);
+    updateUI(itemCount);
     updateBoard();
 };
 
@@ -80,13 +54,33 @@ function updateConfigurationValues() {
     zombiePos = [];
     obstaclePos = [];
     itemPos = [];
+}
 
-    // Labels
+function spawnEntities(entityArray, entityCount, blockedPositions, mapSize) {
+    for (let i = 0; i < entityCount; i++) {
+        let position = generateValidPosition(blockedPositions, mapSize);
+        entityArray.push(position);
+        blockedPositions.push(position);
+    }
+}
+
+function generateValidPosition(blockedPositions, mapSize) {
+    let x, y;
+    do {
+        x = Math.floor(Math.random() * mapSize);
+        y = Math.floor(Math.random() * mapSize);
+    } while (blockedPositions.some(pos => pos.x === x && pos.y === y));
+    return { x, y };
+}
+
+function updateUI(itemCount) {
+    totalItemsLabel.textContent = itemCount;
     collectedItemsLabel.textContent = itemsCollected;
     roundLabel.textContent = round;
 }
 
 // ============================================= //
+// GAME EVENTS
 
 export function handleKeydown(event) {
     switch (event.key) {
@@ -164,7 +158,7 @@ function nextRound() {
 }
 
 // ====================================== //
-// Checks
+// CHECKS
 
 function checkGameOver() {
     if (zombiePos.some(zombie => zombie.x === playerPos.x && zombie.y === playerPos.y)) {
