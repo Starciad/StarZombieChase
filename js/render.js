@@ -1,4 +1,4 @@
-import { itemPos, mapSize, movePlayer, obstaclePos, playerPos, zombiePos } from "./game.js";
+import { gameFinished, itemPos, mapSize, movePlayer, obstaclePos, playerPos, zombiePos } from "./game.js";
 
 export function updateBoard() {
     const gameBoard = document.getElementById("game-board");
@@ -40,6 +40,10 @@ export function updateBoard() {
 // Adds click event to move player on board.
 function addMovementEvent(cell, x, y) {
     cell.addEventListener("click", () => {
+        if (gameFinished) {
+            return;
+        }
+
         const dx = x - playerPos.x;
         const dy = y - playerPos.y;
 

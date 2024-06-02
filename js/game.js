@@ -16,6 +16,7 @@ const totalItemsLabel = document.getElementById('total-items');
 // Stats
 let round = 0;
 let itemsCollected = 0;
+export let gameFinished = false;
 
 // Positions & Entities
 export let playerPos = { x: 0, y: 0 };
@@ -55,6 +56,7 @@ function updateConfigurationValues() {
     zombiePos = [];
     obstaclePos = [];
     itemPos = [];
+    gameFinished = false;
 }
 
 function spawnEntities(entityArray, entityCount, blockedPositions, mapSize) {
@@ -91,7 +93,7 @@ export function handleKeydown(event) {
         'ArrowRight': { dx: 1, dy: 0 }
     };
 
-    if (moveMap[event.key]) {
+    if (moveMap[event.key] && !gameFinished) {
         movePlayer(moveMap[event.key].dx, moveMap[event.key].dy);
     }
 }
@@ -119,6 +121,7 @@ function gameRoutine() {
     moveZombies();
     updateBoard();
     if (checkVictory() || checkGameOver()) {
+        gameFinished = true;
         return;
     }
     nextRound();
