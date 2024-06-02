@@ -131,9 +131,17 @@ function gameRoutine() {
 // GAME LOGIC
 
 function moveZombies() {
-    zombiePos.forEach(zombie => {
+    const newZombiePositions = JSON.parse(JSON.stringify(zombiePos));
+
+    newZombiePositions.forEach((zombie, index) => {
         const { dx, dy } = getZombieDirection(zombie);
-        moveZombie(zombie, dx, dy);
+        const newX = zombie.x + dx;
+        const newY = zombie.y + dy;
+
+        if (isPositionFree(newX, newY, index)) {
+            zombiePos[index].x = newX;
+            zombiePos[index].y = newY;
+        }
     });
 }
 
@@ -143,13 +151,9 @@ function getZombieDirection(zombie) {
     return Math.abs(dx) > Math.abs(dy) ? { dx: Math.sign(dx), dy: 0 } : { dx: 0, dy: Math.sign(dy) };
 }
 
-function moveZombie(zombie, dx, dy) {
-    const newX = zombie.x + dx;
-    const newY = zombie.y + dy;
-    if (!obstaclePos.some(pos => pos.x === newX && pos.y === newY)) {
-        zombie.x = newX;
-        zombie.y = newY;
-    }
+function isPositionFree(x, y, currentZombieIndex) {
+    return !obstaclePos.some(pos => pos.x === x && pos.y === y) &&
+           !zombiePos.some((pos, index) => pos.x === x && pos.y === y && index !== currentZombieIndex);
 }
 
 function collectItem() {
