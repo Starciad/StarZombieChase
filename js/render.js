@@ -31,14 +31,21 @@ export function updateBoard() {
                 cell.classList.add("item");
             }
 
-            // Adds click event to move player on board.
-            cell.addEventListener("click", () => {
-                const dx = x - playerPos.x;
-                const dy = y - playerPos.y;
-                movePlayer(dx, dy);
-            });
-
+            addMovementEvent(cell, x, y);
             gameBoard.appendChild(cell);
         }
     }
 };
+
+// Adds click event to move player on board.
+function addMovementEvent(cell, x, y) {
+    cell.addEventListener("click", () => {
+        const dx = x - playerPos.x;
+        const dy = y - playerPos.y;
+
+        // Check if the move is within the 3x3 area around the player and not to the same position.
+        if (Math.abs(dx) <= 1 && Math.abs(dy) <= 1 && (dx !== 0 || dy !== 0)) {
+            movePlayer(dx, dy);
+        }
+    });
+}
