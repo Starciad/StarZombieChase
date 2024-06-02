@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en-US">
 
 <head>
     <meta charset="UTF-8">
@@ -21,27 +21,27 @@
         <dialog id="settings-dialog">
             <form method="dialog">
                 <fieldset>
-                    <legend>Configuração do Mapa</legend>
+                    <legend>Map Settings</legend>
 
-                    <label for="map-size">Tamanho:</label>
+                    <label for="map-size">Size:</label>
                     <input type="number" id="map-size" min="3" max="10" value="5" required>
                 </fieldset>
                 <fieldset>
-                    <legend>Configurações de Entidades</legend>
+                    <legend>Entity Settings</legend>
 
-                    <label for="zombie-count">Quantidade de Zumbis:</label>
+                    <label for="zombie-count">Zombie Count:</label>
                     <input type="number" id="zombie-count" min="1" max="10" value="1" required>
 
-                    <label for="obstacle-count">Quantidade de Obstáculos:</label>
+                    <label for="obstacle-count">Obstacle Count:</label>
                     <input type="number" id="obstacle-count" min="1" max="10" value="2" required>
 
-                    <label for="item-count">Quantidade de Itens:</label>
+                    <label for="item-count">Item Count:</label>
                     <input type="number" id="item-count" min="1" max="10" value="1" required>
                 </fieldset>
 
                 <menu>
                     <button id="close-settings-button" type="reset">Cancel</button>
-                    <button id="start-game-button" type="submit">Iniciar Jogo</button>
+                    <button id="start-game-button" type="submit">Start Game</button>
                 </menu>
             </form>
         </dialog>
@@ -50,21 +50,21 @@
         <dialog id="game-over-dialog">
             <section>
                 <h2>Game Over</h2>
-                <p>Você foi pego por um zumbi!</p>
+                <p>You were caught by a zombie!</p>
             </section>
             <menu>
-                <button id="restart-game-button">Reiniciar Jogo</button>
+                <button id="restart-game-button">Restart Game</button>
             </menu>
         </dialog>
 
         <!-- Victory -->
         <dialog id="victory-dialog">
             <section>
-                <h2>Você Venceu!</h2>
-                <p>Você coletou todos os itens!</p>
+                <h2>You Won!</h2>
+                <p>You collected all the items!</p>
             </section>
             <menu>
-                <button id="restart-game-victory-button">Reiniciar Jogo</button>
+                <button id="restart-game-victory-button">Restart Game</button>
             </menu>
         </dialog>
     </div>
@@ -72,18 +72,18 @@
     <div id="app-container">
         <header>
             <h1>Star Zombie Chase</h1>
-            <button id="open-settings-button">Configurar Jogo</button>
+            <button id="open-settings-button">Game Settings</button>
         </header>
         <main>
             <div id="game-info">
-                <p>Turno atual: <span id="round">1</span></p>
-                <p>Itens coletados: <span id="collected-items">0</span>/<span id="total-items">1</span></p>
+                <p>Current Turn: <span id="round">1</span></p>
+                <p>Items Collected: <span id="collected-items">0</span>/<span id="total-items">1</span></p>
             </div>
             <div id="game-board" class="grid"></div>
         </main>
         <footer>
-            <p>Jogo feito e desenvolvido pelo <a href="https://github.com/Starciad" target="_blank">Starciad</a></p>
-            <p><a href="https://github.com/Starciad/StarZombieChase.git" target="_blank">Ir para o repositório do jogo</a></p>
+            <p>Game made and developed by <a href="https://github.com/Starciad" target="_blank">Starciad</a></p>
+            <p><a href="https://github.com/Starciad/StarZombieChase.git" target="_blank">Go to the game repository</a></p>
         </footer>
     </div>
 
