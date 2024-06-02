@@ -30,6 +30,11 @@ header button {
     display: grid;
     gap: 5px;
     margin: 20px 0;
+
+    /* Disable Text Selection */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .grid div {
