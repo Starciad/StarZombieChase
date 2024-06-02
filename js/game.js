@@ -1,6 +1,7 @@
 import { gameOverDialog, victoryDialog } from "./main.js";
 import { updateBoard } from "./render.js";
 
+// ============================================= //
 // Inputs
 const mapSizeInput = document.getElementById("map-size");
 const zombieCountInput = document.getElementById("zombie-count");
@@ -12,15 +13,15 @@ const collectedItemsLabel = document.getElementById("collected-items");
 const roundLabel = document.getElementById("round");
 const totalItemsLabel = document.getElementById('total-items');
 
+// Stats
+let round = 0;
+let itemsCollected = 0;
+
 // Positions & Entities
 export let playerPos = { x: 0, y: 0 };
 export let zombiePos = [];
 export let obstaclePos = [];
 export let itemPos = [];
-
-// Stats
-let round = 0;
-let itemsCollected = 0;
 
 // Settings
 export let mapSize = 0;
