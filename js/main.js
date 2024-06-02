@@ -26,12 +26,12 @@ closeSettingsButton.addEventListener("click", () => {
 // ======================================= //
 // Stats
 
-restartGameButtons.forEach(element => {
-    element.addEventListener('click', () => {
+restartGameButtons.forEach((element) => {
+    element.addEventListener("click", () => {
         gameOverDialog.close();
         victoryDialog.close();
         settingsDialog.close();
-    
+
         initializeGame();
     });
 });

@@ -1,8 +1,18 @@
-import { gameFinished, itemPos, mapSize, movePlayer, obstaclePos, playerPos, zombiePos } from "./game.js";
+import {
+    gameFinished,
+    itemPos,
+    mapSize,
+    movePlayer,
+    obstaclePos,
+    playerPos,
+    zombiePos,
+} from "./game.js";
 
-export function updateBoard() {
-    const gameBoard = document.getElementById("game-board");
-    gameBoard.innerHTML = "";
+const gameBoard = document.querySelector("#game-board");
+const gameBoardCells = [];
+
+export function createBoard() {
+    gameBoard.replaceChildren();
     gameBoard.style.gridTemplateColumns = `repeat(${mapSize}, 50px)`;
     gameBoard.style.gridTemplateRows = `repeat(${mapSize}, 50px)`;
 
@@ -10,32 +20,45 @@ export function updateBoard() {
         for (let x = 0; x < mapSize; x++) {
             const cell = document.createElement("div");
 
-            // PLAYER
-            if (x === playerPos.x && y === playerPos.y) {
-                cell.textContent = "🙂";
-                cell.classList.add("player");
-            }
-            // ZOMBIE
-            else if (zombiePos.some((pos) => pos.x === x && pos.y === y)) {
-                cell.textContent = "🧟";
-                cell.classList.add("zombie");
-            }
-            // OBSTACLE
-            else if (obstaclePos.some((pos) => pos.x === x && pos.y === y)) {
-                cell.textContent = "⛔";
-                cell.classList.add("obstacle");
-            }
-            // ITEM
-            else if (itemPos.some((pos) => pos.x === x && pos.y === y)) {
-                cell.textContent = "🧪";
-                cell.classList.add("item");
-            }
-
             addMovementEvent(cell, x, y);
             gameBoard.appendChild(cell);
+            gameBoardCells.push({ element: cell, posX: x, posY: y });
         }
     }
-};
+}
+
+export function updateBoard() {
+    gameBoardCells.forEach((cell) => {
+        if (cell.element.hasAttribute("class")) {
+            cell.element.removeAttribute("class");
+        }
+
+        // PLAYER
+        if (cell.posX === playerPos.x && cell.posY === playerPos.y) {
+            cell.element.textContent = "🙂";
+            cell.element.classList.add("player");
+        }
+        // ZOMBIE
+        else if (zombiePos.some((pos) => pos.x === cell.posX && pos.y === cell.posY)) {
+            cell.element.textContent = "🧟";
+            cell.element.classList.add("zombie");
+        }
+        // OBSTACLE
+        else if (obstaclePos.some((pos) => pos.x === cell.posX && pos.y === cell.posY)) {
+            cell.element.textContent = "⛔";
+            cell.element.classList.add("obstacle");
+        }
+        // ITEM
+        else if (itemPos.some((pos) => pos.x === cell.posX && pos.y === cell.posY)) {
+            cell.element.textContent = "🧪";
+            cell.element.classList.add("item");
+        }
+        // EMPTY
+        else {
+            cell.element.textContent = "";
+        }
+    });
+}
 
 // Adds click event to move player on board.
 function addMovementEvent(cell, x, y) {

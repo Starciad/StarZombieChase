@@ -1,5 +1,5 @@
 import { gameOverDialog, victoryDialog } from "./main.js";
-import { updateBoard } from "./render.js";
+import { createBoard, updateBoard } from "./render.js";
 
 // ============================================= //
 // Inputs
@@ -11,7 +11,7 @@ const itemCountInput = document.getElementById("item-count");
 // Labels
 const collectedItemsLabel = document.getElementById("collected-items");
 const roundLabel = document.getElementById("round");
-const totalItemsLabel = document.getElementById('total-items');
+const totalItemsLabel = document.getElementById("total-items");
 
 // Stats
 let round = 0;
@@ -35,12 +35,23 @@ export let itemCount = 0;
 
 export function initializeGame() {
     updateConfigurationValues();
+    createBoard();
     spawnEntities(zombiePos, zombieCount, [playerPos], mapSize);
-    spawnEntities(obstaclePos, obstacleCount, [playerPos, ...zombiePos], mapSize);
-    spawnEntities(itemPos, itemCount, [playerPos, ...zombiePos, ...obstaclePos], mapSize);
+    spawnEntities(
+        obstaclePos,
+        obstacleCount,
+        [playerPos, ...zombiePos],
+        mapSize
+    );
+    spawnEntities(
+        itemPos,
+        itemCount,
+        [playerPos, ...zombiePos, ...obstaclePos],
+        mapSize
+    );
     updateUI(itemCount);
     updateBoard();
-};
+}
 
 function updateConfigurationValues() {
     // Input
@@ -48,7 +59,7 @@ function updateConfigurationValues() {
     zombieCount = parseInt(zombieCountInput.value);
     obstacleCount = parseInt(obstacleCountInput.value);
     itemCount = parseInt(itemCountInput.value);
-    
+
     // Default
     itemsCollected = 0;
     round = 1;
@@ -72,7 +83,7 @@ function generateValidPosition(blockedPositions, mapSize) {
     do {
         x = Math.floor(Math.random() * mapSize);
         y = Math.floor(Math.random() * mapSize);
-    } while (blockedPositions.some(pos => pos.x === x && pos.y === y));
+    } while (blockedPositions.some((pos) => pos.x === x && pos.y === y));
     return { x, y };
 }
 
@@ -87,10 +98,10 @@ function updateUI(itemCount) {
 
 export function handleKeydown(event) {
     const moveMap = {
-        'ArrowUp': { dx: 0, dy: -1 },
-        'ArrowDown': { dx: 0, dy: 1 },
-        'ArrowLeft': { dx: -1, dy: 0 },
-        'ArrowRight': { dx: 1, dy: 0 }
+        ArrowUp: { dx: 0, dy: -1 },
+        ArrowDown: { dx: 0, dy: 1 },
+        ArrowLeft: { dx: -1, dy: 0 },
+        ArrowRight: { dx: 1, dy: 0 },
     };
 
     if (moveMap[event.key] && !gameFinished) {
@@ -110,9 +121,11 @@ export function movePlayer(dx, dy) {
 
 function isValidMove(x, y) {
     return (
-        x >= 0 && x < mapSize &&
-        y >= 0 && y < mapSize &&
-        !obstaclePos.some(pos => pos.x === x && pos.y === y)
+        x >= 0 &&
+        x < mapSize &&
+        y >= 0 &&
+        y < mapSize &&
+        !obstaclePos.some((pos) => pos.x === x && pos.y === y)
     );
 }
 
@@ -148,16 +161,23 @@ function moveZombies() {
 function getZombieDirection(zombie) {
     const dx = playerPos.x - zombie.x;
     const dy = playerPos.y - zombie.y;
-    return Math.abs(dx) > Math.abs(dy) ? { dx: Math.sign(dx), dy: 0 } : { dx: 0, dy: Math.sign(dy) };
+    return Math.abs(dx) > Math.abs(dy)
+        ? { dx: Math.sign(dx), dy: 0 }
+        : { dx: 0, dy: Math.sign(dy) };
 }
 
 function isPositionFree(x, y, currentZombieIndex) {
-    return !obstaclePos.some(pos => pos.x === x && pos.y === y) &&
-           !zombiePos.some((pos, index) => pos.x === x && pos.y === y && index !== currentZombieIndex);
+    return (
+        !obstaclePos.some((pos) => pos.x === x && pos.y === y) &&
+        !zombiePos.some(
+            (pos, index) =>
+                pos.x === x && pos.y === y && index !== currentZombieIndex
+        )
+    );
 }
 
 function collectItem() {
-    itemPos = itemPos.filter(item => {
+    itemPos = itemPos.filter((item) => {
         if (item.x === playerPos.x && item.y === playerPos.y) {
             itemsCollected++;
             collectedItemsLabel.textContent = itemsCollected;
@@ -176,7 +196,11 @@ function nextRound() {
 // CHECKS
 
 function checkGameOver() {
-    if (zombiePos.some(zombie => zombie.x === playerPos.x && zombie.y === playerPos.y)) {
+    if (
+        zombiePos.some(
+            (zombie) => zombie.x === playerPos.x && zombie.y === playerPos.y
+        )
+    ) {
         gameOverDialog.showModal();
         return true;
     }
